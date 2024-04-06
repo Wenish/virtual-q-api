@@ -1,0 +1,12 @@
+image: python:latest
+
+cache:
+  paths:
+- ~/.cache/pip/
+
+before_script:
+  - pip install -r requirements.txt
+
+test:
+  script:
+    - python3 manage.py test
