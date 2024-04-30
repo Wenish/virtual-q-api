@@ -10,7 +10,7 @@ In this repository is the backend code of the web app.
 
 ## Developer setup (local setup)
 
-1. Install Python 3.x on your machine. https://www.python.org/
+1. Install latest Python v3.x on your machine. https://www.python.org/
 
 2. Initialize your venv
 `python -m venv env`
