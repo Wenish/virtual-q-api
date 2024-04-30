@@ -31,7 +31,7 @@ Run those commands in the root folder of the project:
 
 5. Run Database Migrations
 
-Run this command in the root folger of the project:
+Run this command in the root folder of the project:
 `python manage.py migrate`
 
 6. Start development server
