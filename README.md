@@ -12,19 +12,40 @@ In this repository is the backend code of the web app.
 
 1. Install Python 3.x on your machine. https://www.python.org/
 
-2. Install the project dependencies.
+2. Initialize your venv
+`python -m venv env`
 
-Run this command in the root folder of the project:
-`npm ci`
+3. Activate your environment
 
-3. Start development server
+For Linux Based OS or Mac-OS
+`source venv/bin/activate`
 
-3.1 You also need to start the Backend API "Virtual Q API". (Check out the other Readme for detail instructions for that.)
+For Windows with CMD
+`.\venv\Scripts\activate.bat`
 
-Run this command in the root folder of the project:
-`npm run dev`
+4. Install the project dependencies
+
+Run those commands in the root folder of the project:
+`pip install --upgrade pip`
+`pip install -r requirements.txt`
+
+5. Run Database Migrations
+
+Run this command in the root folger of the project:
+`python manage.py migrate`
+
+6. Start development server
+
+6.1 Run this command in the root folder of the project:
+`python manage.py runserver`
+
+6.2 You also need to start the Frontend Web Client "Virtual Q Web Client". (Check out the other Readme for detail instructions for that.)
 
 ## Build project to make it ready for deployment
+
+// TODO
+
+## Run Tests
 
 // TODO
 
