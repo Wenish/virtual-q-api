@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
 class Queue(models.Model):
@@ -23,6 +24,11 @@ class Ticket(models.Model):
 
     class Meta:
         unique_together = ('queue', 'number')
+
+    def save(self, *args, **kwargs):
+        if self.status not in [choice[0] for choice in self.status_choices]:
+            raise ValueError('Invalid status value.')
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.queue.name + '_' + str(self.number)

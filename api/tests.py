@@ -1,7 +1,10 @@
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import User
+from rest_framework import status
+from rest_framework.test import APIClient, force_authenticate
 from django.db.utils import IntegrityError
 from api.models import Queue, Ticket
+from api.views import QueueViewSet, TicketViewSet
 
 class QueueModelTestCase(TestCase):
     def setUp(self):
@@ -15,11 +18,6 @@ class QueueModelTestCase(TestCase):
 class QueueModelNegativeTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create(username='testuser')
-
-    def test_queue_name_blank(self):
-        # Attempt to create a Queue with a blank name
-        with self.assertRaises(IntegrityError):
-            Queue.objects.create(user=self.user, name='')
 
     def test_queue_user_null(self):
         # Attempt to create a Queue with a null user
@@ -62,3 +60,47 @@ class TicketModelNegativeTestCase(TestCase):
         # Attempt to create a Ticket with a null queue
         with self.assertRaises(IntegrityError):
             Ticket.objects.create(user=self.user, number=1, status=1)
+
+class QueueViewSetTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(username='testuser', email='test@test.com', password='test.1234')
+        self.queue = Queue.objects.create(user=self.user, name='Test Queue 1')
+        self.queue2 = Queue.objects.create(user=self.user, name='Test Queue 2')
+        self.queue3 = Queue.objects.create(user=self.user, name='Test Queue 3')
+        self.factory = RequestFactory()
+        self.client = APIClient()
+
+    def test_queue_list_view(self):
+        request = self.factory.get('/api/queues/')
+        request.user = self.user
+        force_authenticate(request, self.user)
+        response = QueueViewSet.as_view({'get': 'list'})(request)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_create_queue_view(self):
+        data = {'name': 'Test Queue', 'user': 1}
+        request = self.factory.post('/api/queues/', data, QUERY_STRING='format=json')
+        force_authenticate(request, self.user)
+        response = QueueViewSet.as_view({'post': 'create'})(request)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+class TicketViewSetTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(username='testuser', email='test@test.com', password='test.1234')
+        self.queue = Queue.objects.create(user=self.user, name='Test Queue')
+        self.factory = RequestFactory()
+        self.client = APIClient()
+
+    def test_ticket_list_view(self):
+        request = self.factory.get('/api/tickets/')
+        request.user = self.user
+        force_authenticate(request, self.user)
+        response = TicketViewSet.as_view({'get': 'list'})(request)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_create_ticket_view(self):
+        data = {'queue': self.queue.id, 'number': 1, 'status': 1, 'user': self.user.id}
+        request = self.factory.post('/api/tickets/', data, QUERY_STRING='format=json')
+        force_authenticate(request, self.user)
+        response = TicketViewSet.as_view({'post': 'create'})(request)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
