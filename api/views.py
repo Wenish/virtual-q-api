@@ -1,12 +1,12 @@
 from rest_framework import viewsets, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Queue, Ticket
 from .serializers import QueueSerializer, TicketSerializer
 from .permissions import IsOwner
-from rest_framework import filters
-from django_filters.rest_framework import DjangoFilterBackend
 
 class QueueViewSet(viewsets.ModelViewSet):
+    # pylint: disable-next=no-member
     queryset = Queue.objects.all()
     serializer_class = QueueSerializer
     filter_backends = [DjangoFilterBackend]
@@ -16,6 +16,7 @@ class QueueViewSet(viewsets.ModelViewSet):
     
 
 class TicketViewSet(viewsets.ModelViewSet):
+    # pylint: disable-next=no-member
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
     filter_backends = [DjangoFilterBackend]

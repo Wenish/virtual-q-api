@@ -9,7 +9,7 @@ class Queue(models.Model):
     modifiedAt = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 class Ticket(models.Model):
     # Fields

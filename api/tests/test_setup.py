@@ -6,6 +6,3 @@ class TestSetup(APITestCase):
     def setUp(self):
         self.test_url = reverse("test")
         return super().setUp()
-    
-    def tearDown(self):
-        return super().tearDown()

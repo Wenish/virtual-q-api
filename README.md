@@ -57,6 +57,12 @@ Run this command in the root folder of the project:
 
 // TODO
 
+## Run Linting
+
+Run this command in the root folder of the project:
+
+`pylint .`
+
 ## Run Tests
 
 Run this command in the root folder of the project:
