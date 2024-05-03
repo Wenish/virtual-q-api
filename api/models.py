@@ -20,9 +20,8 @@ class Ticket(models.Model):
     status = models.IntegerField(choices=status_choices)
     createdAt = models.DateTimeField(auto_now_add=True)
     modifiedAt = models.DateTimeField(auto_now=True)
-    
+
     class Meta:
-        # Define unique_together to ensure number is unique within each queue
         unique_together = ('queue', 'number')
 
     def __str__(self):
