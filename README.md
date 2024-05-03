@@ -52,11 +52,6 @@ Run this command in the root folder of the project:
 
 #### 7.2 You also need to start the Frontend Web Client "Virtual Q Web Client". (Check out the other Readme for detail instructions for that.)
 
-
-## Build project to make it ready for deployment
-
-// TODO
-
 ## Run Linting
 
 Run this command in the root folder of the project:
