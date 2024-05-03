@@ -13,9 +13,9 @@ class Queue(models.Model):
 
 class Ticket(models.Model):
     # Fields
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    queue = models.ForeignKey(Queue, on_delete=models.CASCADE)
-    number = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
+    queue = models.ForeignKey(Queue, on_delete=models.CASCADE, editable=False)
+    number = models.IntegerField(editable=False)
     status_choices = [(1, 'new'), (2, 'in progress'), (3, 'done')]
     status = models.IntegerField(choices=status_choices)
     createdAt = models.DateTimeField(auto_now_add=True)
