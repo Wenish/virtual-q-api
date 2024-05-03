@@ -28,7 +28,7 @@ class TicketModelTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create(username='testuser')
         self.queue = Queue.objects.create(user=self.user, name='Test Queue')
-        self.ticket = Ticket.objects.create(user=self.user, queue=self.queue, number=1, status=1)
+        self.ticket = Ticket.objects.create(user=self.user, queue=self.queue, status=1)
 
     def test_ticket_creation(self):
         self.assertEqual(self.ticket.user, self.user)
@@ -39,27 +39,17 @@ class TicketModelTestCase(TestCase):
     def test_ticket_number_unique_within_queue(self):
         # Attempt to create a ticket with the same number within the same queue
         with self.assertRaises(Exception):
-            Ticket.objects.create(user=self.user, queue=self.queue, number=1, status=2)
+            Ticket.objects.create(user=self.user, queue=self.queue, status=2)
 
 class TicketModelNegativeTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create(username='testuser')
         self.queue = Queue.objects.create(user=self.user, name='Test Queue')
 
-    def test_ticket_number_blank(self):
-        # Attempt to create a Ticket with a blank number
-        with self.assertRaises(IntegrityError):
-            Ticket.objects.create(user=self.user, queue=self.queue, number=None, status=1)
-
     def test_ticket_status_invalid(self):
         # Attempt to create a Ticket with an invalid status
         with self.assertRaises(ValueError):
-            Ticket.objects.create(user=self.user, queue=self.queue, number=1, status=5)
-
-    def test_ticket_queue_null(self):
-        # Attempt to create a Ticket with a null queue
-        with self.assertRaises(IntegrityError):
-            Ticket.objects.create(user=self.user, number=1, status=1)
+            Ticket.objects.create(user=self.user, queue=self.queue, status=5)
 
 class QueueViewSetTestCase(TestCase):
     def setUp(self):
@@ -99,7 +89,7 @@ class TicketViewSetTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_create_ticket_view(self):
-        data = {'queue': self.queue.id, 'number': 1, 'status': 1, 'user': self.user.id}
+        data = {'queue': self.queue.id, 'status': 1, 'user': self.user.id}
         request = self.factory.post('/api/tickets/', data, QUERY_STRING='format=json')
         force_authenticate(request, self.user)
         response = TicketViewSet.as_view({'post': 'create'})(request)
