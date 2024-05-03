@@ -1,8 +1,8 @@
 from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import User
+from django.db.utils import IntegrityError
 from rest_framework import status
 from rest_framework.test import APIClient, force_authenticate
-from django.db.utils import IntegrityError
 from api.models import Queue, Ticket
 from api.views import QueueViewSet, TicketViewSet
 
