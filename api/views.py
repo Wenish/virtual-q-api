@@ -10,7 +10,7 @@ class QueueViewSet(viewsets.ModelViewSet):
     queryset = Queue.objects.all()
     serializer_class = QueueSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['name', 'user__id']
+    filterset_fields = ['user__id']
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, IsOwner]
     
