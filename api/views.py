@@ -1,7 +1,11 @@
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework import viewsets
+from .models import Queue, Ticket
+from .serializers import QueueSerializer, TicketSerializer
 
-@api_view(['GET'])
-def getData(request):
-    test = { 'a': 'some value', 'b': 2}
-    return Response(test)
+class QueueViewSet(viewsets.ModelViewSet):
+    queryset = Queue.objects.all()
+    serializer_class = QueueSerializer
+
+class TicketViewSet(viewsets.ModelViewSet):
+    queryset = Ticket.objects.all()
+    serializer_class = TicketSerializer
