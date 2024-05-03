@@ -10,6 +10,5 @@ class TicketAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'queue', 'number', 'status', 'createdAt', 'modifiedAt')
     readonly_fields  = ('createdAt', 'modifiedAt')
 
-# Register your models with the custom admin classes
 admin.site.register(Queue, QueueAdmin)
 admin.site.register(Ticket, TicketAdmin)
