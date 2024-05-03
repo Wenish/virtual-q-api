@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 
 class Queue(models.Model):
@@ -23,6 +24,13 @@ class Ticket(models.Model):
 
     class Meta:
         unique_together = ('queue', 'number')
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'queue'],
+                condition=Q(status__in=[1, 2]),
+                name='unique_user_queue_for_new_or_in_progress'
+            )
+        ]
 
     def save(self, *args, **kwargs):
         if self.status not in [choice[0] for choice in self.status_choices]:
