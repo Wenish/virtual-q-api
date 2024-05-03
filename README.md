@@ -10,13 +10,13 @@ In this repository is the backend code of the web app.
 
 ## Developer setup (local setup)
 
-1. Install latest Python v3.x on your machine. https://www.python.org/
+#### 1. Install latest Python v3.x on your machine. https://www.python.org/
 
-2. Initialize your venv
+#### 2. Initialize your venv
 
 `python -m venv env`
 
-3. Activate your environment
+#### 3. Activate your environment
 
 For Linux Based OS or Mac-OS
 
@@ -26,7 +26,7 @@ For Windows with CMD
 
 `.\venv\Scripts\activate.bat`
 
-4. Install the project dependencies
+#### 4. Install the project dependencies
 
 Run those commands in the root folder of the project:
 
@@ -34,25 +34,23 @@ Run those commands in the root folder of the project:
 
 `pip install -r requirements.txt`
 
-5. Run Database Migrations
+#### 5. Run Database Migrations
 
 Run this command in the root folder of the project:
 
 `python manage.py migrate`
 
-6. Start development server
+#### 6. Optional: Create a superuser for access to the admin panel
 
-6.1 Run this command in the root folder of the project:
+`python manage.py createsuperuser`
+
+#### 7. Start development server
+
+#### 7.1 Run this command in the root folder of the project:
 
 `python manage.py runserver`
 
-6.2 You also need to start the Frontend Web Client "Virtual Q Web Client". (Check out the other Readme for detail instructions for that.)
-
-### Freeze Dependencies
-
-Run this command in the root folder of the project:
-
-`pip freeze > requirements.txt`
+#### 7.2 You also need to start the Frontend Web Client "Virtual Q Web Client". (Check out the other Readme for detail instructions for that.)
 
 
 ## Build project to make it ready for deployment
@@ -74,6 +72,22 @@ Import pdb in the file you want to start the debug:
 Add this line where the debug should start:
 
 `pdb.set_trace()`
+
+## Migrations
+
+Creating a migration:
+
+`python manage.py makemigrations`
+
+Apply migration:
+
+`python manage.py migrate`
+
+## Freeze Dependencies
+
+Run this command in the root folder of the project:
+
+`pip freeze > requirements.txt`
 
 ## Contributing
 This project is a solo project.
