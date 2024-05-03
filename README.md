@@ -62,6 +62,7 @@ Run this command in the root folder of the project:
 ## Run Tests
 
 Run this command in the root folder of the project:
+
 `python manage.py test`
 
 ## Contributing
