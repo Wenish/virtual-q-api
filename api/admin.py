@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Queue, Ticket
 
-
 class QueueAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'name', 'createdAt', 'modifiedAt')
     readonly_fields  = ('createdAt', 'modifiedAt')
