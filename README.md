@@ -52,7 +52,7 @@ Run this command in the root folder of the project:
 
 Run this command in the root folder of the project:
 
-`pip freeze > requirements.txt  `
+`pip freeze > requirements.txt`
 
 
 ## Build project to make it ready for deployment
@@ -64,6 +64,16 @@ Run this command in the root folder of the project:
 Run this command in the root folder of the project:
 
 `python manage.py test`
+
+## Debug
+
+Import pdb in the file you want to start the debug:
+
+`import pdb`
+
+Add this line where the debug should start:
+
+`pdb.set_trace()`
 
 ## Contributing
 This project is a solo project.
