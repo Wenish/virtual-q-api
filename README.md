@@ -10,7 +10,9 @@ In this repository is the backend code of the web app.
 
 ## Developer setup (local setup)
 
-#### 1. Install the latest Python v3.x on your machine. https://www.python.org/
+#### 1. Install the latest Python v3.x on your machine.
+
+https://www.python.org/
 
 #### 2. Initialize your venv
 
@@ -64,16 +66,6 @@ Run this command in the root folder of the project:
 
 `python manage.py test`
 
-## Debug
-
-Import pdb in the file you want to start the debug:
-
-`import pdb`
-
-Add this line where the debug should start:
-
-`pdb.set_trace()`
-
 ## Migrations
 
 Creating a migration:
@@ -89,6 +81,16 @@ Apply migration:
 Run this command in the root folder of the project:
 
 `pip freeze > requirements.txt`
+
+## Debug
+
+Import pdb in the file you want to start the debug:
+
+`import pdb`
+
+Add this line where the debug should start:
+
+`pdb.set_trace()`
 
 ## Contributing
 This project is a solo project.
