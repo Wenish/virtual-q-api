@@ -8,7 +8,7 @@ It's a web app which allows the user to manage virtual ticket queues.
 In this repository is the backend code of the web app.
 
 
-## Developer setup (local setup)
+## Developer setup
 
 #### 1. Install the latest Python v3.x on your machine.
 
