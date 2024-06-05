@@ -3,7 +3,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Queue, Ticket
 from .serializers import QueueSerializer, TicketSerializer
-from .permissions import IsOwner, IsQueueOwner
+from .permissions import IsOwner, IsQueueOwner, IsOwnerOrReadOnly
 
 class QueueViewSet(viewsets.ModelViewSet):
     # pylint: disable-next=no-member
@@ -12,7 +12,7 @@ class QueueViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['user__id']
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated, IsOwner]
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     
 
 class TicketViewSet(viewsets.ModelViewSet):
