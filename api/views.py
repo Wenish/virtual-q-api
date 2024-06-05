@@ -20,7 +20,11 @@ class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['status', 'queue_id', 'user__id']
+    filterset_fields = {
+        'status': ["in", "exact"],
+        'queue_id': ["exact"],
+        'user__id': ["exact"]
+    }
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, IsOwner|IsQueueOwner]
 
