@@ -37,6 +37,7 @@ class Ticket(models.Model):
             raise ValueError('Invalid status value.')
         
         if not self.pk:
+            # pylint: disable-next=no-member
             last_ticket = Ticket.objects.filter(queue=self.queue).order_by('-number').first()
             if last_ticket:
                 self.number = last_ticket.number + 1
