@@ -22,11 +22,11 @@ https://www.python.org/
 
 For Linux Based OS or Mac-OS
 
-`source venv/bin/activate`
+`source env/bin/activate`
 
 For Windows with CMD
 
-`.\venv\Scripts\activate.bat`
+`.\env\Scripts\activate.bat`
 
 #### 4. Install the project dependencies
 
