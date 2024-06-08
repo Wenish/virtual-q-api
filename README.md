@@ -16,21 +16,21 @@ https://www.python.org/
 
 #### 2. Initialize your venv
 
-`python -m venv env`
+`python -m venv .venv`
 
 #### 3. Activate your environment
 
 For Linux Based OS or Mac-OS
 
-`source env/bin/activate`
+`source .venv/bin/activate`
 
 For Windows with CMD
 
-`.\env\Scripts\activate.bat`
+`.\.venv\Scripts\activate.bat`
 
 #### 4. Install the project dependencies
 
-Run those commands in the root folder of the project:
+Run those commands in the root folder of the repository:
 
 `pip install --upgrade pip`
 
@@ -38,7 +38,7 @@ Run those commands in the root folder of the project:
 
 #### 5. Run Database Migrations
 
-Run this command in the root folder of the project:
+Run this command in the root folder of the repository:
 
 `python manage.py migrate`
 
@@ -48,7 +48,7 @@ Run this command in the root folder of the project:
 
 #### 7. Start development server
 
-#### 7.1 Run this command in the root folder of the project:
+#### 7.1 Run this command in the root folder of the repository:
 
 `python manage.py runserver`
 
@@ -56,13 +56,13 @@ Run this command in the root folder of the project:
 
 ## Run Linting
 
-Run this command in the root folder of the project:
+Run this command in the root folder of the repository:
 
 `pylint .`
 
 ## Run Tests
 
-Run this command in the root folder of the project:
+Run this command in the root folder of the repository:
 
 `python manage.py test`
 
@@ -78,7 +78,7 @@ Apply migration:
 
 ## Freeze Dependencies
 
-Run this command in the root folder of the project:
+Run this command in the root folder of the repository:
 
 `pip freeze > requirements.txt`
 
