@@ -9,6 +9,9 @@ class Queue(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     modifiedAt = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         return str(self.name)
 
@@ -23,6 +26,7 @@ class Ticket(models.Model):
     modifiedAt = models.DateTimeField(auto_now=True)
 
     class Meta:
+        ordering = ['id']
         unique_together = ('queue', 'number')
         constraints = [
             models.UniqueConstraint(
