@@ -1,8 +1,9 @@
+from django.urls import reverse
 from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from rest_framework import status
-from rest_framework.test import APIClient, force_authenticate
+from rest_framework.test import APIClient, force_authenticate, APITestCase
 from api.models import Queue, Ticket
 from api.views import QueueViewSet, TicketViewSet
 
@@ -20,7 +21,6 @@ class QueueModelNegativeTestCase(TestCase):
         self.user = User.objects.create(username='testuser')
 
     def test_queue_user_null(self):
-        # Attempt to create a Queue with a null user
         with self.assertRaises(IntegrityError):
             Queue.objects.create(name='Test Queue')
 
@@ -37,7 +37,6 @@ class TicketModelTestCase(TestCase):
         self.assertEqual(self.ticket.status, 1)
 
     def test_ticket_number_unique_within_queue(self):
-        # Attempt to create a ticket with the same number within the same queue
         with self.assertRaises(Exception):
             Ticket.objects.create(user=self.user, queue=self.queue, status=2)
 
@@ -47,7 +46,6 @@ class TicketModelNegativeTestCase(TestCase):
         self.queue = Queue.objects.create(user=self.user, name='Test Queue')
 
     def test_ticket_status_invalid(self):
-        # Attempt to create a Ticket with an invalid status
         with self.assertRaises(ValueError):
             Ticket.objects.create(user=self.user, queue=self.queue, status=5)
 
@@ -94,3 +92,31 @@ class TicketViewSetTestCase(TestCase):
         force_authenticate(request, self.user)
         response = TicketViewSet.as_view({'post': 'create'})(request)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+class StatsViewTestCase(APITestCase):
+    def setUp(self):
+        self.user1 = User.objects.create_user(username='testuser1', password='testpassword')
+        self.user2 = User.objects.create_user(username='testuser2', password='testpassword')
+        
+        self.queue1 = Queue.objects.create(user=self.user1, name='Queue 1')
+        self.queue2 = Queue.objects.create(user=self.user2, name='Queue 2')
+
+        Ticket.objects.create(user=self.user1, queue=self.queue1, status=1)
+        Ticket.objects.create(user=self.user2, queue=self.queue1, status=2)
+        Ticket.objects.create(user=self.user1, queue=self.queue2, status=3)
+        Ticket.objects.create(user=self.user2, queue=self.queue2, status=1)
+        Ticket.objects.create(user=self.user2, queue=self.queue2, status=3)
+    def test_stats_view(self):
+        url = reverse('stats')
+        response = self.client.get(url)
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('total_queues', response.data)
+        self.assertIn('total_tickets', response.data)
+        self.assertIn('tickets_by_status', response.data)
+        
+        self.assertEqual(response.data['total_queues'], 2)
+        self.assertEqual(response.data['total_tickets'], 5)
+        self.assertEqual(response.data['tickets_by_status']['1'], 2)
+        self.assertEqual(response.data['tickets_by_status']['2'], 1)
+        self.assertEqual(response.data['tickets_by_status']['3'], 2)
