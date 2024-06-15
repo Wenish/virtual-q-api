@@ -96,6 +96,7 @@ REST_FRAMEWORK = {
 WSGI_APPLICATION = 'digitalqueues.wsgi.application'
 
 SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
     'SECURITY_DEFINITIONS': {
         'Bearer': {
             'type': 'apiKey',
